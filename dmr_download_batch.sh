@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
-#SBATCH --time=72:00:00
+#SBATCH --time=216:00:00
 #SBATCH --output=/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/logs/epa_%A_%a.out
 #SBATCH --error=/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/logs/epa_%A_%a.err
 #SBATCH --signal=USR1@300  # Send signal 5 minutes before timeout
@@ -33,7 +33,7 @@ fi
 echo "$(date): Starting processing for $STATE" >> "$CHECKPOINT_FILE"
 
 # Run the Python script for the current state
-python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/download_discharge_monitoring_report.py "$STATE"
+python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/dmr_download.py "$STATE"
 
 # Check if the script ran successfully
 if [ $? -eq 0 ]; then

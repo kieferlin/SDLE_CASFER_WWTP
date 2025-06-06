@@ -31,7 +31,7 @@ fi
 echo "$(date): Starting processing for $STATE" >> "$CHECKPOINT_FILE"
 
 # Run the Python script
-python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/download_facility.py "$STATE"
+python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/facility_download.py "$STATE"
 
 # Check if success
 if [ $? -eq 0 ]; then
