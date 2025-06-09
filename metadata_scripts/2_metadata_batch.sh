@@ -8,5 +8,5 @@
 
 
 echo "Starting metadata generation..."
-python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/FINAL_metadata_descriptions.py
+python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/2_metadata_descriptions.py
 echo "Done."

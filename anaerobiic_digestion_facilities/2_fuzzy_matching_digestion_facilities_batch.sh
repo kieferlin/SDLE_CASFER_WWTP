@@ -17,7 +17,7 @@ pip install --upgrade pip
 pip install pandas rapidfuzz
 
 # Run your Python script
-python /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/anaerobic_digestion_facilities/fuzzy_matching_digestion_facilities.py
+python /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/anaerobic_digestion_facilities/2_fuzzy_matching_digestion_facilities.py
 
 # Deactivate and remove the virtual environment
 deactivate

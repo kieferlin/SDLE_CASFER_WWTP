@@ -14,7 +14,7 @@ set -euo pipefail
 mkdir -p logs
 
 # YEAR and STATE setup
-YEARS=($(seq 2007 2025))
+YEARS=($(seq 2007 2026))
 STATES=("AL" "AR" "AZ" "CA" "CO" "CT" "DC" "DE" "FL" "GA" "IA" "ID" "IL" "IN" "KS" 
         "KY" "LA" "MA" "MD" "ME" "MI" "MN" "MO" "MS" "MT" "NC" "ND" "NE" "NH" "NJ" 
         "NM" "NV" "NY" "OH" "OK" "OR" "PA" "RI" "SC" "SD" "TN" "TX" "UT" "VA" "VT" 
@@ -28,4 +28,4 @@ STATE=${STATES[$STATE_INDEX]}
 
 echo "[$SLURM_ARRAY_TASK_ID] Processing $YEAR / $STATE"
 
-python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/process_states.py "$YEAR" "$STATE"
+python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/1_extract_metadata.py "$YEAR" "$STATE"
