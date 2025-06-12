@@ -1,13 +1,13 @@
 import os
 import json
 
-# Root directory containing year-wise metadata folders
-root_dir = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/final_metadata_files"
+# root directory containing year-wise metadata folders
+root_dir = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/2_metadata_descriptions"
 
-# Set to collect all unique Parameter Descriptions
+# set to collect all unique Parameter Descriptions
 unique_parameters = set()
 
-# Walk through the directory tree
+# loop through the directory tree
 for dirpath, _, filenames in os.walk(root_dir):
     for filename in filenames:
         if filename.endswith("_description.json"):
@@ -21,13 +21,13 @@ for dirpath, _, filenames in os.walk(root_dir):
             except Exception as e:
                 print(f"Error processing {file_path}: {e}")
 
-# Convert set to sorted list
+# convert set to sorted list
 unique_param_list = sorted(unique_parameters)
 
-# Define output path
+# define output path
 output_json = os.path.join(root_dir, "comprehensive_list_wwtp_discharge.json")
 
-# Write to JSON file
+# write to JSON file
 with open(output_json, 'w', encoding='utf-8') as out:
     json.dump(unique_param_list, out, indent=2)
 

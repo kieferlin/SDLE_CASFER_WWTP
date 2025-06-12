@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=meta_json
-#SBATCH --output=logs/meta_json_%j.out
-#SBATCH --error=logs/meta_json_%j.err
+#SBATCH --output=2_metadata_descriptions_logs/meta_json_%j.out
+#SBATCH --error=2_metadata_descriptions_logs/meta_json_%j.err
 #SBATCH --time=00:10:00
 #SBATCH --mem=2G
 #SBATCH --cpus-per-task=1

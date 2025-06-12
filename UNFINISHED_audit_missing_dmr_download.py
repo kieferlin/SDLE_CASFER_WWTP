@@ -1,8 +1,9 @@
 import os
 import csv
 
-input_base = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/facility_data"
-output_base = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/EPA-WWTP"
+input_base = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/1_facility_download"
+output_base = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/2_dmr_download"
+report_path = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/audit_missing_csvs.txt"
 
 missing_report = {}
 
@@ -40,8 +41,11 @@ for state in os.listdir(input_base):
         if missing_ids:
             missing_report[f"{state}_{year}"] = missing_ids
 
-# Report
-for key, ids in missing_report.items():
-    print(f"{key}: {len(ids)} missing")
-    for npdes_id in ids:
-        print(f"  - {npdes_id}")
+# Write report to file
+with open(report_path, "w") as f:
+    for key, ids in missing_report.items():
+        f.write(f"{key}: {len(ids)} missing\n")
+        for npdes_id in ids:
+            f.write(f"  - {npdes_id}\n")
+
+print(f"Missing report saved to: {report_path}")

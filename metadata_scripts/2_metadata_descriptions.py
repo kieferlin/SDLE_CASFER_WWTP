@@ -2,8 +2,8 @@ import os
 import json
 
 # directory containing all json files
-input_dir = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/output"
-base_output_dir = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/final_metadata_files"
+input_dir = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/1_extract_metadata_output"
+base_output_dir = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/2_metadata_descriptions"
 
 # field descriptions (as comments)
 column_descriptions = {

@@ -5,21 +5,14 @@ from collections import defaultdict
 
 def expand_from_all_files(input_dir, output_path):
     """
-    Scans all CSVs in input_dir and writes unique column values to output_path (JSON).
+    Scans all CSVs in input_dir and writes a fresh set of unique 
+    column values to output_path (JSON), overwriting any previous file.
     """
+    #  start with a fresh empty dictionary ensureing that old values from previous runs are never included
     unique_values = defaultdict(set)
 
-    # load existing values if output_path already exists
-    if os.path.exists(output_path):
-        try:
-            with open(output_path, 'r', encoding='utf-8') as f:
-                existing_data = json.load(f)
-                for col, vals in existing_data.items():
-                    unique_values[col].update(vals)
-        except Exception as e:
-            print(f"⚠️ Could not load existing output JSON: {e}")
-
-    # scan all CSVs
+    # scan all CSVs and build the unique value sets from scratch
+    print(f" Regenerating unique values from all files in {input_dir}...")
     for filename in os.listdir(input_dir):
         if filename.endswith(".csv"):
             filepath = os.path.join(input_dir, filename)
@@ -35,10 +28,10 @@ def expand_from_all_files(input_dir, output_path):
             except Exception as e:
                 print(f"Error reading {filepath}: {e}")
 
-    # convert sets to sorted lists and save
-    unique_values_json = {col: sorted(vals) for col, vals in unique_values.items()}
+    # convert sets to sorted lists for consistent output and save
+    unique_values_json = {col: sorted(list(vals)) for col, vals in unique_values.items()}
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(unique_values_json, f, indent=2)
 
-    print(f" Wrote unique column values to {output_path}")
+    print(f" Wrote fresh unique column values to {output_path}")

@@ -1,10 +1,10 @@
 import os
 import shutil
 
-EPA_DIR = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/EPA-WWTP"
-TRASH_DIR = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/bad_csv_trash"
+EPA_DIR = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/2_dmr_download"
+TRASH_DIR = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/clean_bad_csvs_trash"
 CHECKPOINT_DIR = "/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/checkpoints"
-LOG_FILE = "bad_csv_deletion_log.txt"
+LOG_FILE = "clean_bad_csvs_logs.txt"
 
 # ensure trash and log directories exist
 os.makedirs(TRASH_DIR, exist_ok=True)

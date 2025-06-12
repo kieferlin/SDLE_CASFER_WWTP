@@ -5,15 +5,15 @@ from extract_unique_column_values import expand_from_all_files
 year = sys.argv[1]
 state = sys.argv[2]
 
-input_dir = f"/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/EPA-WWTP/{year}/{state}"
-output_path = f"/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/output/{year}_{state}_unique.json"
+input_dir = f"/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/2_dmr_download/{year}/{state}"
+output_path = f"/home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/metadata_scripts/1_extract_metadata_output/{year}_{state}_unique.json"
 
-# Check if input exists
+# check if input exists
 if not os.path.exists(input_dir):
     print(f"Input directory not found: {input_dir}")
     sys.exit(1)
 
-# If output exists, compare modification times
+# if output exists, compare modification times
 if os.path.exists(output_path):
     input_mtime = max(os.path.getmtime(os.path.join(input_dir, f)) for f in os.listdir(input_dir))
     output_mtime = os.path.getmtime(output_path)

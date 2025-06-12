@@ -6,5 +6,5 @@
 #SBATCH --mem=2G
 #SBATCH --cpus-per-task=1
 
-# Run the cleanup script
+# run the cleanup script
 python3 /home/kyl29/CSE_MSE_RXF131/staging/casf/kyl29/clean_bad_csvs.py
