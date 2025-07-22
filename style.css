@@ -1,0 +1,213 @@
+/* ==============================================================================
+   File: style.css
+   Description:
+     This file contains all the styling for the Leaflet map front-end. It
+     defines the layout for the primary map view, the user interface
+     controls (filters, buttons), popups, a data loading indicator, the
+     map legend, and custom marker styles.
+   ============================================================================== */
+
+/* --- Base Page & Map Layout --- */
+/* Establishes the foundational styles for a full-page map application. */
+
+html, body {
+    /* Ensure the main elements take up the entire viewport. */
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* Prevents scrollbars from appearing on the main page, as scrolling is handled by the map. */
+    overflow: hidden;
+    /* Use a modern, system-agnostic font stack for broad compatibility. */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  #map {
+    /* Position the map container to fill its parent (the body). */
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /* Set a low z-index to ensure the map is the bottom layer, beneath all UI controls. */
+    z-index: 1;
+  }
+  
+  /* --- UI Control Elements --- */
+  /* Styles for floating panels and buttons that overlay the map. */
+  
+  .filter-ui {
+    /* This is the main container for user controls (dropdowns, etc.). */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    /* A high z-index keeps the UI on top of the map. */
+    z-index: 1000;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65); /* Adds depth. */
+  }
+  
+  #site-count-container {
+    /* Provides spacing for the text that shows the number of visible sites. */
+    margin-top: 8px;
+  }
+  
+  #notification-bar {
+    /* A banner for showing status messages (e.g., 'No data found'). */
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    /* Horizontally centers the element regardless of its width. */
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #f8d7da; /* Default error/warning style. */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    z-index: 1001; /* Must be on top of other UI elements. */
+    /* Hidden by default; made visible via JavaScript. */
+    display: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  #notification-bar.success {
+    /* A modifier class to change the bar's color for success messages. */
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+  }
+  
+  /* --- Reset View Button Styles (for Leaflet Control) --- */
+  /* This ID targets a custom Leaflet control. Leaflet handles its positioning. */
+  #reset-view-btn {
+    cursor: pointer;
+    font-size: 1.5em; /* Makes the button icon larger and easier to click. */
+    line-height: 1.2;
+    text-align: center;
+  }
+  #reset-view-btn:hover {
+    /* Standard hover effect for interactivity feedback. */
+    background-color: #f4f4f4;
+  }
+  
+  /* --- Loading Indicator & Progress Bar --- */
+  /* Styles for the overlay shown during data processing. */
+  
+  .hidden {
+    /* A general-purpose utility class to hide elements accessibly. */
+    display: none !important;
+  }
+  
+  #loading-indicator {
+    /* A full-screen overlay to block interaction while loading. */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white background. */
+    z-index: 2000; /* Highest z-index to cover all other content. */
+    /* Flexbox is used to perfectly center the loading content both vertically and horizontally. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #progress-text {
+    /* Text displayed above the progress bar (e.g., "Loading Data..."). */
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .progress-bar-container {
+    /* The background or "track" of the progress bar. */
+    width: 80%;
+    max-width: 500px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inner shadow for depth. */
+  }
+  
+  #progress-bar {
+    /* The colored, moving part of the progress bar. Its width is set by JavaScript. */
+    width: 0%; /* Starts at 0%. */
+    height: 25px;
+    background-color: #3498db;
+    border-radius: 5px;
+    /* Animates the width change for a smooth loading effect. */
+    transition: width 0.2s ease-out;
+  }
+  
+  /* --- Map Legend Styles --- */
+  /* This styles a custom Leaflet control that acts as the map key. */
+  
+  .legend {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: rgba(255,255,255,0.8); /* Semi-transparent background to not fully obscure the map. */
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    line-height: 18px;
+    color: #555;
+  }
+  .legend i {
+    /* Styles the colored square/circle for each legend item. */
+    width: 18px;
+    height: 18px;
+    float: left; /* Aligns the color swatch to the left of the text. */
+    margin-right: 8px;
+    opacity: 0.9;
+    border-radius: 50%; /* Makes the swatch a circle. */
+  }
+  .legend .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  /* --- Custom Marker & Popup Styles --- */
+  
+  .marker-pin {
+    /* This creates a custom map pin shape using only CSS. */
+    width: 18px;
+    height: 18px;
+    /* Creates the teardrop shape by rounding three corners. */
+    border-radius: 50% 50% 50% 0;
+    position: absolute;
+    /* Rotates the square to make it look like a pin pointing down. */
+    transform: rotate(-45deg);
+    /* Centering logic for the pin. */
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+    border: 1px solid #fff; /* White border for contrast. */
+  }
+  .marker-pin::after {
+    /* The ::after pseudo-element creates the inner white circle of the pin. */
+    content: '';
+    width: 12px;
+    height: 12px;
+    margin: 2px 0 0 2px;
+    background: #fff;
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .leaflet-popup-content {
+    /* Overrides Leaflet's default popup width for a wider, more consistent layout. */
+    /* !important is used to ensure this rule takes precedence over Leaflet's inline styles. */
+    width: 300px !important; 
+    margin: 14px;
+  }
+  
+  .chart-container {
+    /* A dedicated container within the popup for embedding a chart (e.g., from Chart.js). */
+    position: relative;
+    width: 280px;
+    height: 160px;
+    margin-top: 10px;
+  }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- ==============================================================================
+     File: index.html
+
+     Description:
+       This is the main HTML file for the Wastewater Treatment Plant (WWTP) Map
+       Viewer application. It defines the structure of the webpage, including all
+       user interface elements like the map container, filter dropdowns, and
+       loading indicators. It also links all necessary external and local CSS
+       stylesheets and JavaScript libraries that power the application's
+       functionality and appearance.
+
+    Usage:
+        python3 -m http.server
+
+============================================================================== -->
+<html>
+<head>
+  <!-- Basic page metadata -->
+  <meta charset="utf-8">
+  <title>WWTP Map Viewer</title>
+
+  <!-- === External CSS Libraries === -->
+  <!-- Leaflet CSS: Core styling for the interactive map tiles and controls. -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Marker Cluster CSS: Styling for clustering map points for better performance and readability. -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+  <!-- === Local Custom CSS === -->
+  <!-- style.css: Custom styles for the filter UI, popups, and other page elements. -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- === External JavaScript Libraries === -->
+  <!-- Leaflet JS: The core JavaScript library for creating interactive maps. -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Marker Cluster JS: The plugin for grouping map markers into clusters. -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  
+  <!-- Chart.js Library: Used to create the nutrient charts inside the map popups. -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+  <!-- This div is the main container where the Leaflet map will be rendered by map.js. -->
+  <div id="map"></div>
+
+  <!-- A container for displaying error or informational messages to the user (e.g., "Data not found"). -->
+  <div id="notification-bar"></div>
+
+  <!-- User's comment retained for historical context. -->
+  <!-- REMOVED: The manual div for the reset button is gone. -->
+
+  <!-- A container for all the user-facing filter controls. -->
+  <div class="filter-ui">
+    <!-- Dropdown for selecting a specific nutrient to filter by. -->
+    <label for="pollutantFilter">Nutrient:</label>
+    <select id="pollutantFilter">
+      <option value="">-- All Nutrients --</option>
+    </select>
+    
+    <!-- Dropdown for filtering facilities by state. -->
+    <label for="stateFilter">State:</label>
+    <select id="stateFilter">
+      <option value="">-- Select State --</option>
+    </select>
+
+    <!-- Dropdown for selecting the data year. -->
+    <label for="yearFilter">Year:</label>
+    <select id="yearFilter">
+      <option value="">-- Select Year --</option>
+    </select>
+
+    <!-- Dropdown for filtering by Anaerobic Digestion (AD) status. -->
+    <label for="adFilter">Digestion Type:</label>
+    <select id="adFilter">
+      <option value="all">Show All Facilities</option>
+      <option value="only_ad">Only Anaerobic Digestion</option>
+      <option value="exclude_ad">Exclude Anaerobic Digestion</option>
+    </select>
+
+    <!-- A small display to show the user how many sites are visible after filtering. -->
+    <div id="site-count-container">
+      <strong>Filtered Sites:</strong> <span id="site-count-value">0</span>
+    </div>
+  </div>
+
+  <!-- A loading indicator that is shown while data is being fetched and processed. Initially hidden. -->
+  <div id="loading-indicator" class="hidden">
+    <div id="progress-text">Loading...</div>
+    <div class="progress-bar-container">
+      <div id="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- === Local Application Scripts === -->
+  <!-- These are the core JavaScript files for the application's logic. -->
+  <!-- The 'defer' attribute ensures the scripts are executed only after the HTML document has been fully parsed. -->
+  <script src="pollutant_list.js" defer></script>
+  <script src="map.js" defer></script>
+</body>
+</html>
